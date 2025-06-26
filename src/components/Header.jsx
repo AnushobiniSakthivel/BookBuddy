@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaShoppingCart, FaHeart } from 'react-icons/fa';
+import { FaShoppingCart, FaHeart, FaUser } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 
 const Header = () => {
@@ -30,6 +30,9 @@ const Header = () => {
         <Link to="/contact">Contact</Link>
       </nav>
       <div className="category-icons">
+        <Link to="/profile" className="profile-icon-link" title="Profile" style={{ marginRight: '1rem' }}>
+          <FaUser />
+        </Link>
         <Link to="/cart" className="cart-icon-link">
           <FaShoppingCart />
           {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}

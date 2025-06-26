@@ -1,5 +1,3 @@
-import { FaTrash } from 'react-icons/fa';
-
 const WishlistItem = ({ item, index, onRemove }) => {
   return (
     <div className="wishlist-item">
@@ -8,11 +6,10 @@ const WishlistItem = ({ item, index, onRemove }) => {
         <h3>{item.title}</h3>
         <p>Price: ₹{item.price}</p>
         <button className="remove-btn" onClick={() => onRemove(index)}>
-          <FaTrash /> Remove
+          Remove
         </button>
       </div>
     </div>
   );
 };
-
 export default WishlistItem;

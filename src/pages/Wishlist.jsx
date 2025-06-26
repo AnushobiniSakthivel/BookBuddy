@@ -6,13 +6,11 @@ const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    const wishlistData = JSON.parse(localStorage.getItem('wishlist')) || [];
-    setWishlist(wishlistData);
+    setWishlist(JSON.parse(localStorage.getItem('wishlist')) || []);
   }, []);
 
   const removeFromWishlist = (index) => {
-    const updatedWishlist = [...wishlist];
-    updatedWishlist.splice(index, 1);
+    const updatedWishlist = wishlist.filter((_, i) => i !== index);
     localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
     setWishlist(updatedWishlist);
   };

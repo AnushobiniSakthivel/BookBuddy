@@ -1,19 +1,30 @@
 import { useState } from 'react';
+import { gql, useMutation } from '@apollo/client';
+
+const SUBMIT_MESSAGE = gql
+  `mutation SubmitMessage($name: String!, $email: String!, $message: String!) {
+  submitMessage(name: $name, email: $email, message: $message)
+}`;
+
 const Contact = () => {
+  const [submitMessage] = useMutation(SUBMIT_MESSAGE);
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const messages = JSON.parse(localStorage.getItem('messages')) || [];
-    messages.push({ name, email, message, timestamp: new Date().toISOString() });
-    localStorage.setItem('messages', JSON.stringify(messages));
-    alert('✅ Message sent! We’ll get back to you soon.');
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    await submitMessage({ variables: { name, email, message } });
+    alert("✅ Message sent successfully!");
     setName('');
     setEmail('');
     setMessage('');
-  };
+  } catch (err) {
+    alert("❌ Failed to send message: " + err.message);
+  }
+};
 
   return (
     <div className="login-container">
